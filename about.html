@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us – Satrio Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #2596be; --accent-dark: #1a7a9e; --accent-light: #e8f5fb;
+    --black: #0d1117; --gray-dark: #2c3340; --gray-mid: #6b7280;
+    --gray-light: #f4f6f8; --white: #ffffff; --border: #e5e8ed;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--black); background: var(--white); overflow-x: hidden; }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 5%;
+    height: 72px; display: flex; align-items: center; justify-content: space-between;
+    transition: box-shadow .3s;
+  }
+  header.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,.07); }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--black); text-decoration: none; letter-spacing: -.01em; }
+  .logo span { color: var(--accent); }
+  nav { display: flex; gap: 2.4rem; align-items: center; }
+  nav a { font-size: .875rem; font-weight: 500; color: var(--gray-dark); text-decoration: none; letter-spacing: .02em; position: relative; transition: color .2s; }
+  nav a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width .3s; }
+  nav a:hover, nav a.active { color: var(--accent); }
+  nav a:hover::after, nav a.active::after { width: 100%; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .65rem 1.5rem; border-radius: 4px; font-size: .875rem; font-weight: 500; cursor: pointer; text-decoration: none; transition: all .25s; letter-spacing: .02em; }
+  .btn-primary { background: var(--accent); color: #fff; border: 2px solid var(--accent); }
+  .btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(37,150,190,.25); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; } .reveal-delay-2 { transition-delay: .2s; } .reveal-delay-3 { transition-delay: .3s; }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 160px 5% 100px;
+    background: linear-gradient(135deg, #f9fbfd 0%, #eef7fb 60%, #dff0f7 100%);
+    position: relative; overflow: hidden;
+  }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(37,150,190,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(37,150,190,.04) 1px, transparent 1px); background-size: 60px 60px; }
+  .breadcrumb { font-size: .8rem; color: var(--gray-mid); margin-bottom: 1.2rem; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; }
+  .page-hero h1 em { font-style: italic; color: var(--accent); }
+  .page-hero p { font-size: 1.05rem; color: var(--gray-mid); line-height: 1.8; margin-top: 1.2rem; }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 2rem; }
+  .hero-stat-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--accent); }
+  .hero-stat-item p { font-size: .82rem; color: var(--gray-mid); margin-top: .2rem; }
+  .hero-image-block { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); border-radius: 24px; padding: 3rem; color: #fff; position: relative; overflow: hidden; min-height: 360px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero-image-block::before { content: '"'; position: absolute; top: -1rem; left: 1.5rem; font-family: 'Cormorant Garamond', serif; font-size: 12rem; font-weight: 300; color: rgba(255,255,255,.1); line-height: 1; }
+  .hero-image-block blockquote { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; font-weight: 300; line-height: 1.5; position: relative; z-index: 1; }
+  .hero-image-block cite { font-size: .85rem; font-style: normal; opacity: .7; display: block; margin-top: 1rem; }
+
+  /* COMMON */
+  section { padding: 6rem 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .8rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.2; color: var(--black); margin-bottom: 1rem; }
+  .section-subtitle { font-size: 1rem; color: var(--gray-mid); line-height: 1.7; max-width: 580px; }
+
+  /* STORY */
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .story-text p { font-size: 1rem; color: var(--gray-mid); line-height: 1.85; margin-bottom: 1.2rem; }
+  .story-text p strong { color: var(--black); }
+  .story-visual { position: relative; }
+  .story-img-card { background: var(--gray-light); border-radius: 20px; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+  .story-pattern { position: absolute; inset: 0; background: linear-gradient(135deg, var(--accent-light) 0%, var(--gray-light) 100%); display: flex; align-items: center; justify-content: center; }
+  .story-pattern svg { width: 180px; height: 180px; color: var(--accent); opacity: .15; }
+  .story-badge { position: absolute; bottom: 2rem; right: -1.5rem; background: #fff; border-radius: 16px; padding: 1.2rem 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,.1); text-align: center; }
+  .story-badge .num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--accent); }
+  .story-badge p { font-size: .8rem; color: var(--gray-mid); }
+
+  /* VALUES */
+  .values-section { background: var(--gray-light); }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3.5rem; }
+  .value-card { background: #fff; border-radius: 16px; padding: 2.5rem 2rem; border: 1px solid var(--border); transition: all .3s; }
+  .value-card:hover { box-shadow: 0 20px 50px rgba(37,150,190,.1); transform: translateY(-5px); border-color: var(--accent); }
+  .value-icon { width: 52px; height: 52px; background: var(--accent-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; transition: background .3s; }
+  .value-card:hover .value-icon { background: var(--accent); }
+  .value-icon svg { width: 24px; height: 24px; color: var(--accent); transition: color .3s; }
+  .value-card:hover .value-icon svg { color: #fff; }
+  .value-card h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: .6rem; }
+  .value-card p { font-size: .9rem; color: var(--gray-mid); line-height: 1.65; }
+
+  /* TEAM */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3.5rem; }
+  .team-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); transition: all .3s; background: #fff; }
+  .team-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,.08); transform: translateY(-5px); }
+  .team-avatar { height: 220px; display: flex; align-items: center; justify-content: center; }
+  .team-avatar.c1 { background: linear-gradient(135deg, #dff0f7 0%, #b8ddf0 100%); }
+  .team-avatar.c2 { background: linear-gradient(135deg, #fde8e8 0%, #f5c6c6 100%); }
+  .team-avatar.c3 { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); }
+  .team-avatar.c4 { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
+  .avatar-initials { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 600; color: var(--accent); }
+  .team-info { padding: 1.5rem; }
+  .team-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: .25rem; }
+  .team-info .role { font-size: .83rem; color: var(--accent); font-weight: 500; margin-bottom: .5rem; }
+  .team-info p { font-size: .83rem; color: var(--gray-mid); line-height: 1.6; }
+
+  /* MILESTONES */
+  .milestones-section { background: var(--black); color: #fff; }
+  .milestones-section .section-title { color: #fff; }
+  .milestones-section .section-label { color: rgba(37,150,190,.9); }
+  .timeline { margin-top: 3.5rem; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,.1); transform: translateX(-50%); }
+  .timeline-item { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 3rem; align-items: center; }
+  .timeline-item:nth-child(even) .timeline-content { order: 2; }
+  .timeline-item:nth-child(even) .timeline-year { order: 1; text-align: left; }
+  .timeline-year { text-align: right; position: relative; }
+  .timeline-year .year { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; color: var(--accent); }
+  .timeline-year::after { content: ''; position: absolute; right: -2.1rem; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; background: var(--accent); border-radius: 50%; border: 3px solid var(--black); }
+  .timeline-item:nth-child(even) .timeline-year::after { left: -2.1rem; right: auto; }
+  .timeline-content { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 2rem; }
+  .timeline-content h4 { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
+  .timeline-content p { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+
+  /* CTA */
+  .cta-section { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); text-align: center; padding: 7rem 5%; }
+  .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; color: #fff; margin-bottom: 1rem; }
+  .cta-section p { font-size: 1.05rem; color: rgba(255,255,255,.8); max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .btn-white { background: #fff; color: var(--accent); border: 2px solid #fff; }
+  .btn-white:hover { background: transparent; color: #fff; }
+
+  /* FOOTER */
+  footer { background: var(--black); color: rgba(255,255,255,.6); padding: 5rem 5% 2.5rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 3rem; max-width: 1200px; margin: 0 auto; }
+  .footer-brand .logo { color: #fff; display: block; margin-bottom: 1rem; }
+  .footer-brand p { font-size: .88rem; line-height: 1.7; max-width: 260px; }
+  .footer-col h5 { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.9); margin-bottom: 1.2rem; }
+  .footer-col a { display: block; font-size: .88rem; color: rgba(255,255,255,.5); text-decoration: none; margin-bottom: .6rem; transition: color .2s; }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-col p { font-size: .88rem; margin-bottom: .6rem; }
+  .footer-bottom { max-width: 1200px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.08); display: flex; justify-content: space-between; align-items: center; font-size: .8rem; flex-wrap: wrap; gap: 1rem; }
+
+  @media(max-width:900px) {
+    .page-hero-inner, .story-grid, .values-grid { grid-template-columns: 1fr; }
+    .timeline::before { left: 2rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 1rem; padding-left: 4rem; }
+    .timeline-year { text-align: left; }
+    .timeline-year::after { left: -2.2rem; right: auto; }
+    .timeline-item:nth-child(even) .timeline-content { order: 0; }
+    .timeline-item:nth-child(even) .timeline-year { text-align: left; }
+    .timeline-item:nth-child(even) .timeline-year::after { left: -2.2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media(max-width:600px) { nav { display: none; } .hero-stats { flex-wrap: wrap; gap: 1.5rem; } .footer-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header id="header">
+  <a href="index.html" class="logo">Satrio <span>Consulting</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About Us</a>
+    <a href="services.html">Our Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="contact.html" class="btn btn-primary" style="font-size:.83rem;padding:.55rem 1.2rem;">Get in Touch</a>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="index.html">Home</a> / About Us</div>
+      <h1>Connecting <em>Asia's</em><br>Best Talent with<br>Visionary Businesses</h1>
+      <p>We are a regional executive search and talent solutions firm with a singular mission: help organisations grow by putting the right people in the right roles.</p>
+      <div class="hero-stats">
+        <div class="hero-stat-item"><h3>8+</h3><p>Years of Excellence</p></div>
+        <div class="hero-stat-item"><h3>500+</h3><p>Placements Made</p></div>
+        <div class="hero-stat-item"><h3>12</h3><p>Markets Covered</p></div>
+      </div>
+    </div>
+    <div class="hero-image-block">
+      <blockquote>"Talent is the most powerful competitive advantage. We exist to ensure our clients always have the edge."</blockquote>
+      <cite>— Founder, Satrio Consulting</cite>
+    </div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section>
+  <div class="section-inner">
+    <div class="story-grid">
+      <div class="story-visual reveal">
+        <div class="story-img-card">
+          <div class="story-pattern">
+            <svg viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="2" stroke-dasharray="8 4"/><circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width="2"/><circle cx="100" cy="100" r="20" fill="currentColor" opacity=".3"/></svg>
+          </div>
+        </div>
+        <div class="story-badge">
+          <div class="num">2016</div>
+          <p>Founded in<br>Jakarta</p>
+        </div>
+      </div>
+      <div class="story-text reveal reveal-delay-2">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Built from a <em>Belief</em> in Human Potential</h2>
+        <p>Satrio Consulting was founded in 2016 with a simple but powerful belief: <strong>the right talent transforms organisations.</strong> What began as a boutique search firm in Jakarta has grown into a regional talent powerhouse serving clients across Southeast Asia and beyond.</p>
+        <p>Our founders, seasoned professionals from the worlds of HR, finance, and operations, recognised a critical gap — companies were struggling to access quality talent in emerging markets, while skilled professionals were struggling to find roles worthy of their ambitions.</p>
+        <p>We built Satrio Consulting to close that gap. Today, we operate at the intersection of precision search, technology, and a deeply human understanding of what makes careers and companies thrive.</p>
+        <a href="contact.html" class="btn btn-primary" style="margin-top:1.5rem;">Work With Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="section-inner">
+    <p class="section-label reveal">What Drives Us</p>
+    <h2 class="section-title reveal reveal-delay-1">Our Core Values</h2>
+    <p class="section-subtitle reveal reveal-delay-2">These principles guide every search, every conversation, and every placement we make.</p>
+    <div class="values-grid">
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+        <h4>Integrity First</h4>
+        <p>We operate with full transparency. Every recommendation we make is honest, even when it's not what the client expects to hear.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+        <h4>Excellence Always</h4>
+        <p>Good is never enough. We pursue exceptional results through rigorous processes, continuous learning, and relentless attention to detail.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-3">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg></div>
+        <h4>Human at the Core</h4>
+        <p>Behind every role is a person and behind every hire is a life changed. We never lose sight of the human dimension in recruitment.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+        <h4>Regional Mastery</h4>
+        <p>Deep cultural fluency across ASEAN and Japan gives us an edge that global firms simply cannot replicate from afar.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+        <h4>Speed & Precision</h4>
+        <p>We move fast — but never recklessly. Our process is engineered to deliver the right hire quickly without sacrificing quality.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-3">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></div>
+        <h4>Growth Partnership</h4>
+        <p>We think long-term. We grow with our clients, understanding their evolving needs as their businesses scale and change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section>
+  <div class="section-inner">
+    <p class="section-label reveal">Our People</p>
+    <h2 class="section-title reveal reveal-delay-1">The Team Behind Your Hire</h2>
+    <p class="section-subtitle reveal reveal-delay-2">A diverse team of industry specialists, talent experts, and regional strategists dedicated to your success.</p>
+    <div class="team-grid">
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-avatar c1"><div class="avatar-initials">AS</div></div>
+        <div class="team-info">
+          <h4>Satrio Consulting</h4>
+          <div class="role">Founder & Managing Director</div>
+          <p>15+ years in executive search and talent consulting across Southeast Asia and Japan.</p>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-avatar c2"><div class="avatar-initials">DR</div></div>
+        <div class="team-info">
+          <h4>Jesselyn</h4>
+          <div class="role">Business Development</div>
+          <p>Specialist in C-suite and senior leadership placements across finance and technology sectors.</p>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-avatar c3"><div class="avatar-initials">BW</div></div>
+        <div class="team-info">
+          <h4>MIKKE TRINANDA SUSANTI</h4>
+          <div class="role">Career Advisor</div>
+          <p>Expert in designing scalable recruitment operations for high-growth organisations.</p>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-avatar c4"><div class="avatar-initials">YN</div></div>
+        <div class="team-info">
+          <h4>NURFAIZA SYIFA Gaharu</h4>
+          <div class="role">Japan Desk Lead – OKOSHI</div>
+          <p>Bridges Indonesian talent with Japanese corporate culture; fluent in Japanese business protocols.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MILESTONES -->
+<section class="milestones-section">
+  <div class="section-inner">
+    <p class="section-label reveal">Our Journey</p>
+    <h2 class="section-title reveal reveal-delay-1">Milestones That<br>Define Us</h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-year"><div class="year">2016</div></div>
+        <div class="timeline-content"><h4>Founded in Jakarta</h4><p>Satrio Consulting was established with a team of 3, focused on executive search for financial services clients.</p></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year"><div class="year">2018</div></div>
+        <div class="timeline-content"><h4>Expansion to RPO</h4><p>Launched our Recruitment Process Outsourcing service, becoming a full-cycle talent partner for scaling startups.</p></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year"><div class="year">2020</div></div>
+        <div class="timeline-content"><h4>OKOSHI Program Launch</h4><p>Introduced the Japanese Education Program, connecting Indonesian professionals with career opportunities in Japan.</p></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year"><div class="year">2022</div></div>
+        <div class="timeline-content"><h4>35,000+ Talent Network</h4><p>Our community surpassed 35,000 professionals across WhatsApp and Discord, becoming the largest job seeker network in Indonesia.</p></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year"><div class="year">2024</div></div>
+        <div class="timeline-content"><h4>Hirai.io AI Platform</h4><p>Launched Hirai.io, our AI-powered recruitment technology platform, transforming how companies discover and evaluate talent.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <h2>Let's Build Something<br>Great Together</h2>
+  <p>Whether you're hiring for one critical role or transforming your entire talent strategy, we're ready to help you make it happen.</p>
+  <a href="contact.html" class="btn btn-white">Start the Conversation</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Satrio <span>Consulting</span></a><p>Connecting businesses with exceptional talent across Asia.</p></div>
+    <div class="footer-col"><h5>Navigation</h5><a href="index.html">Home</a><a href="about.html">About Us</a><a href="services.html">Our Services</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h5>Services</h5><a href="services.html">Talent Search</a><a href="services.html">RPO</a><a href="services.html">Employer of Record</a><a href="services.html">OKOSHI Program</a><a href="services.html">Hirai.io</a></div>
+    <div class="footer-col"><h5>Contact</h5><p>📍 Jakarta, Indonesia</p><p>📧 hello@satrioconsulting.com</p><p>📞 +62 21 1234 5678</p></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Satrio Consulting. All rights reserved.</span><span>Executive Search · RPO · EOR · Talent Solutions</span></div>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 30); });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>

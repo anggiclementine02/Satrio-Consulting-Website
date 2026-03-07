@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights – Satrio Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#2596be;--accent-dark:#1a7a9e;--accent-light:#e8f5fb;--black:#0d1117;--gray-dark:#2c3340;--gray-mid:#6b7280;--gray-light:#f4f6f8;--white:#ffffff;--border:#e5e8ed;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--white);overflow-x:hidden;}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s;}
+  header.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.07);}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--black);text-decoration:none;letter-spacing:-.01em;}
+  .logo span{color:var(--accent);}
+  nav{display:flex;gap:2.4rem;align-items:center;}
+  nav a{font-size:.875rem;font-weight:500;color:var(--gray-dark);text-decoration:none;letter-spacing:.02em;position:relative;transition:color .2s;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s;}
+  nav a:hover,nav a.active{color:var(--accent);}
+  nav a:hover::after,nav a.active::after{width:100%;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.5rem;border-radius:4px;font-size:.875rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all .25s;letter-spacing:.02em;}
+  .btn-primary{background:var(--accent);color:#fff;border:2px solid var(--accent);}
+  .btn-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,150,190,.25);}
+  .btn-white{background:#fff;color:var(--accent);border:2px solid #fff;}
+  .btn-white:hover{background:transparent;color:#fff;}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}.reveal-delay-2{transition-delay:.2s;}.reveal-delay-3{transition-delay:.3s;}
+
+  .page-hero{padding:160px 5% 100px;background:linear-gradient(135deg,#f9fbfd 0%,#eef7fb 60%,#dff0f7 100%);position:relative;overflow:hidden;}
+  .page-hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(37,150,190,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,150,190,.04) 1px,transparent 1px);background-size:60px 60px;}
+  .page-hero-inner{max-width:1200px;margin:0 auto;}
+  .breadcrumb{font-size:.8rem;color:var(--gray-mid);margin-bottom:1.2rem;}
+  .breadcrumb a{color:var(--accent);text-decoration:none;}
+  .page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;max-width:700px;}
+  .page-hero h1 em{font-style:italic;color:var(--accent);}
+  .page-hero p{font-size:1.05rem;color:var(--gray-mid);line-height:1.8;margin-top:1.2rem;max-width:580px;}
+
+  section{padding:6rem 5%;}
+  .section-inner{max-width:1200px;margin:0 auto;}
+  .section-label{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.2;color:var(--black);margin-bottom:1rem;}
+
+  /* FEATURED ARTICLE */
+  .featured-article{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:24px;overflow:hidden;border:1px solid var(--border);margin-bottom:4rem;transition:box-shadow .3s;}
+  .featured-article:hover{box-shadow:0 30px 80px rgba(0,0,0,.1);}
+  .featured-img{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);padding:4rem;display:flex;flex-direction:column;justify-content:flex-end;position:relative;min-height:400px;}
+  .featured-img::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+  .featured-tag{position:absolute;top:2rem;left:2rem;background:rgba(255,255,255,.2);color:#fff;padding:.3rem .8rem;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:.06em;}
+  .featured-img-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:#fff;line-height:1.3;position:relative;z-index:1;}
+  .featured-content{padding:3rem;display:flex;flex-direction:column;justify-content:center;}
+  .art-meta{font-size:.8rem;color:var(--gray-mid);margin-bottom:1rem;display:flex;gap:1rem;}
+  .featured-content h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:1rem;line-height:1.3;}
+  .featured-content p{font-size:.95rem;color:var(--gray-mid);line-height:1.75;margin-bottom:1.5rem;}
+  .read-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;color:var(--accent);text-decoration:none;transition:gap .2s;}
+  .read-link:hover{gap:.9rem;}
+  .read-link svg{width:16px;height:16px;}
+
+  /* ARTICLES GRID */
+  .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+  .article-card{border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s;background:#fff;}
+  .article-card:hover{box-shadow:0 20px 50px rgba(0,0,0,.08);transform:translateY(-5px);border-color:var(--accent);}
+  .article-thumb{height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .at-1{background:linear-gradient(135deg,#e3f2fd 0%,#90caf9 100%);}
+  .at-2{background:linear-gradient(135deg,#f3e5f5 0%,#ce93d8 100%);}
+  .at-3{background:linear-gradient(135deg,#e8f5e9 0%,#a5d6a7 100%);}
+  .at-4{background:linear-gradient(135deg,#fff8e1 0%,#ffcc80 100%);}
+  .at-5{background:linear-gradient(135deg,#fce4ec 0%,#f48fb1 100%);}
+  .at-6{background:linear-gradient(135deg,#e8eaf6 0%,#9fa8da 100%);}
+  .article-thumb-icon{font-size:3rem;opacity:.5;}
+  .article-tag{position:absolute;top:1rem;left:1rem;background:rgba(255,255,255,.9);color:var(--accent);padding:.25rem .7rem;border-radius:50px;font-size:.72rem;font-weight:600;letter-spacing:.06em;}
+  .article-body{padding:1.5rem 1.5rem 2rem;}
+  .article-meta{font-size:.78rem;color:var(--gray-mid);margin-bottom:.7rem;display:flex;gap:.8rem;}
+  .article-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;line-height:1.35;margin-bottom:.7rem;}
+  .article-card p{font-size:.85rem;color:var(--gray-mid);line-height:1.65;margin-bottom:1rem;}
+
+  /* TOPICS */
+  .topics-section{background:var(--gray-light);}
+  .topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:2.5rem;}
+  .topic-pill{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;transition:all .3s;cursor:pointer;text-decoration:none;}
+  .topic-pill:hover{border-color:var(--accent);background:var(--accent-light);}
+  .topic-pill span{font-size:.88rem;font-weight:500;color:var(--gray-dark);}
+  .topic-pill:hover span{color:var(--accent);}
+
+  /* NEWSLETTER */
+  .newsletter-section{background:var(--black);color:#fff;text-align:center;padding:6rem 5%;}
+  .newsletter-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:#fff;margin-bottom:1rem;}
+  .newsletter-section p{color:rgba(255,255,255,.6);max-width:480px;margin:0 auto 2rem;line-height:1.7;}
+  .newsletter-form{display:flex;gap:1rem;max-width:440px;margin:0 auto;justify-content:center;flex-wrap:wrap;}
+  .newsletter-form input{flex:1;padding:.75rem 1.2rem;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:4px;color:#fff;font-size:.9rem;min-width:200px;}
+  .newsletter-form input::placeholder{color:rgba(255,255,255,.4);}
+  .newsletter-form input:focus{outline:none;border-color:var(--accent);}
+
+  /* CTA */
+  .cta-section{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);text-align:center;padding:7rem 5%;}
+  .cta-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:300;color:#fff;margin-bottom:1rem;}
+  .cta-section p{font-size:1.05rem;color:rgba(255,255,255,.8);max-width:540px;margin:0 auto 2.5rem;line-height:1.7;}
+
+  footer{background:var(--black);color:rgba(255,255,255,.6);padding:5rem 5% 2.5rem;}
+  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:3rem;max-width:1200px;margin:0 auto;}
+  .footer-brand .logo{color:#fff;display:block;margin-bottom:1rem;}
+  .footer-brand p{font-size:.88rem;line-height:1.7;max-width:260px;}
+  .footer-col h5{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-bottom:1.2rem;}
+  .footer-col a{display:block;font-size:.88rem;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:.6rem;transition:color .2s;}
+  .footer-col a:hover{color:var(--accent);}
+  .footer-col p{font-size:.88rem;margin-bottom:.6rem;}
+  .footer-bottom{max-width:1200px;margin:3rem auto 0;padding-top:2rem;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;font-size:.8rem;flex-wrap:wrap;gap:1rem;}
+
+  @media(max-width:900px){.featured-article,.articles-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:600px){nav{display:none;}.footer-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header id="header">
+  <a href="index.html" class="logo">Satrio <span>Consulting</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="services.html">Our Services</a>
+    <a href="insights.html" class="active">Insights</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="contact.html" class="btn btn-primary" style="font-size:.83rem;padding:.55rem 1.2rem;">Get in Touch</a>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Insights</div>
+    <h1><em>Insights</em> & Perspectives<br>on Talent in Asia</h1>
+    <p>Market intelligence, hiring trends, career strategies, and thought leadership from the Satrio Consulting team — curated for business leaders and talent professionals.</p>
+  </div>
+</div>
+
+<section>
+  <div class="section-inner">
+    <!-- FEATURED -->
+    <p class="section-label reveal">Featured</p>
+    <div class="featured-article reveal reveal-delay-1">
+      <div class="featured-img">
+        <div class="featured-tag">🔍 Executive Search</div>
+        <div class="featured-img-title">The 2025 Executive<br>Talent Landscape<br>in Southeast Asia</div>
+      </div>
+      <div class="featured-content">
+        <div class="art-meta"><span>📅 December 2024</span><span>⏱ 8 min read</span></div>
+        <h2>What C-Suite Hiring Tells Us About Asia's Growth Ambitions</h2>
+        <p>Demand for senior leaders with both regional fluency and global strategic thinking has surged across Indonesia, Malaysia, and Singapore. We analyse the key drivers, the talent gaps, and what boards should prioritise when building executive teams for 2025.</p>
+        <a href="#" class="read-link">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
+    </div>
+
+    <!-- ARTICLES GRID -->
+    <div class="articles-grid">
+      <div class="article-card reveal reveal-delay-1">
+        <div class="article-thumb at-1"><div class="article-thumb-icon">🏭</div><div class="article-tag">RPO</div></div>
+        <div class="article-body">
+          <div class="article-meta"><span>📅 Nov 2024</span><span>⏱ 5 min</span></div>
+          <h3>Why High-Growth Companies Are Outsourcing Their Entire Recruitment Function</h3>
+          <p>RPO is no longer just for multinationals. We examine how agile startups are leveraging full-cycle outsourcing to hire faster and better.</p>
+          <a href="#" class="read-link">Read More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-2">
+        <div class="article-thumb at-2"><div class="article-thumb-icon">🇯🇵</div><div class="article-tag">OKOSHI</div></div>
+        <div class="article-body">
+          <div class="article-meta"><span>📅 Oct 2024</span><span>⏱ 6 min</span></div>
+          <h3>Career in Japan: What Indonesian Professionals Need to Know Before Making the Move</h3>
+          <p>From N3 requirements to workplace culture, our OKOSHI advisors break down everything aspiring Japan-based professionals should prepare for.</p>
+          <a href="#" class="read-link">Read More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-3">
+        <div class="article-thumb at-3"><div class="article-thumb-icon">⚡</div><div class="article-tag">AI in HR</div></div>
+        <div class="article-body">
+          <div class="article-meta"><span>📅 Sep 2024</span><span>⏱ 7 min</span></div>
+          <h3>How AI Is Changing the Way Companies Identify and Evaluate Talent</h3>
+          <p>Beyond resume screening — a look at how intelligent matching and predictive analytics are reshaping the recruiter's role in 2025.</p>
+          <a href="#" class="read-link">Read More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-1">
+        <div class="article-thumb at-4"><div class="article-thumb-icon">🌏</div><div class="article-tag">EOR</div></div>
+        <div class="article-body">
+          <div class="article-meta"><span>📅 Aug 2024</span><span>⏱ 5 min</span></div>
+          <h3>Hiring Across ASEAN Without a Legal Entity: The EOR Advantage</h3>
+          <p>Companies expanding across Southeast Asia are using Employer of Record services to move fast and stay compliant. Here's how it works.</p>
+          <a href="#" class="read-link">Read More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-2">
+        <div class="article-thumb at-5"><div class="article-thumb-icon">💼</div><div class="article-tag">Career</div></div>
+        <div class="article-body">
+          <div class="article-meta"><span>📅 Jul 2024</span><span>⏱ 4 min</span></div>
+          <h3>The Art of the Executive Job Search: What Senior Leaders Do Differently</h3>
+          <p>C-suite roles are rarely found on job boards. Our search consultants reveal the strategies top executives use to land their next big role.</p>
+          <a href="#" class="read-link">Read More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-3">
+        <div class="article-thumb at-6"><div class="article-thumb-icon">📊</div><div class="article-tag">Salary Report</div></div>
+        <div class="article-body">
+          <div class="article-meta"><span>📅 Jun 2024</span><span>⏱ 10 min</span></div>
+          <h3>2024 Indonesia Salary Benchmarking Report: Key Findings Across 8 Sectors</h3>
+          <p>Our annual salary survey covers 8 industries and 50+ roles across Jakarta, Surabaya, and Bali — essential reading for HR and hiring managers.</p>
+          <a href="#" class="read-link">Read More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="topics-section">
+  <div class="section-inner">
+    <p class="section-label reveal">Browse by Topic</p>
+    <h2 class="section-title reveal reveal-delay-1">Explore All Topics</h2>
+    <div class="topics-grid">
+      <a href="#" class="topic-pill reveal"><span>🔍 Executive Search</span></a>
+      <a href="#" class="topic-pill reveal reveal-delay-1"><span>🏭 RPO</span></a>
+      <a href="#" class="topic-pill reveal reveal-delay-2"><span>🌏 EOR & Compliance</span></a>
+      <a href="#" class="topic-pill reveal reveal-delay-3"><span>🇯🇵 Japan Careers</span></a>
+      <a href="#" class="topic-pill reveal"><span>⚡ AI in Recruitment</span></a>
+      <a href="#" class="topic-pill reveal reveal-delay-1"><span>💼 Career Advice</span></a>
+      <a href="#" class="topic-pill reveal reveal-delay-2"><span>📊 Salary Reports</span></a>
+      <a href="#" class="topic-pill reveal reveal-delay-3"><span>🏦 Industry Trends</span></a>
+      <a href="#" class="topic-pill reveal"><span>🤝 Employer Branding</span></a>
+      <a href="#" class="topic-pill reveal reveal-delay-1"><span>🎯 Leadership</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section reveal">
+  <h2>Stay Ahead of the<br>Talent Market</h2>
+  <p>Subscribe to our monthly Insights newsletter — exclusive research, salary data, and regional hiring trends delivered to your inbox.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Your work email address">
+    <a href="#" class="btn btn-primary">Subscribe</a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <h2>Turn Insight into Action</h2>
+  <p>Ready to apply these insights to your own hiring strategy? Our consultants are here to help you build the team your business needs.</p>
+  <a href="contact.html" class="btn btn-white">Talk to a Consultant</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Satrio <span>Consulting</span></a><p>Connecting businesses with exceptional talent across Asia.</p></div>
+    <div class="footer-col"><h5>Navigation</h5><a href="index.html">Home</a><a href="about.html">About Us</a><a href="services.html">Our Services</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h5>Services</h5><a href="services.html">Talent Search</a><a href="services.html">RPO</a><a href="services.html">Employer of Record</a><a href="services.html">OKOSHI Program</a><a href="services.html">Hirai.io</a></div>
+    <div class="footer-col"><h5>Contact</h5><p>📍 Jakarta, Indonesia</p><p>📧 hello@satrioconsulting.com</p><p>📞 +62 21 1234 5678</p></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Satrio Consulting. All rights reserved.</span><span>Executive Search · RPO · EOR · Talent Solutions</span></div>
+</footer>
+<script>
+  const header=document.getElementById('header');
+  window.addEventListener('scroll',()=>{header.classList.toggle('scrolled',window.scrollY>30);});
+  const reveals=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.1});
+  reveals.forEach(r=>observer.observe(r));
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Services – Satrio Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --accent:#2596be;--accent-dark:#1a7a9e;--accent-light:#e8f5fb;--black:#0d1117;--gray-dark:#2c3340;--gray-mid:#6b7280;--gray-light:#f4f6f8;--white:#ffffff;--border:#e5e8ed; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--white);overflow-x:hidden;}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s;}
+  header.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.07);}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--black);text-decoration:none;letter-spacing:-.01em;}
+  .logo span{color:var(--accent);}
+  nav{display:flex;gap:2.4rem;align-items:center;}
+  nav a{font-size:.875rem;font-weight:500;color:var(--gray-dark);text-decoration:none;letter-spacing:.02em;position:relative;transition:color .2s;}
+  nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s;}
+  nav a:hover,nav a.active{color:var(--accent);}
+  nav a:hover::after,nav a.active::after{width:100%;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.5rem;border-radius:4px;font-size:.875rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all .25s;letter-spacing:.02em;}
+  .btn-primary{background:var(--accent);color:#fff;border:2px solid var(--accent);}
+  .btn-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,150,190,.25);}
+  .btn-outline{background:transparent;color:var(--accent);border:2px solid var(--accent);}
+  .btn-outline:hover{background:var(--accent);color:#fff;}
+  .btn-white{background:#fff;color:var(--accent);border:2px solid #fff;}
+  .btn-white:hover{background:transparent;color:#fff;}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;} .reveal-delay-2{transition-delay:.2s;} .reveal-delay-3{transition-delay:.3s;}
+
+  /* PAGE HERO */
+  .page-hero{padding:160px 5% 100px;background:linear-gradient(135deg,#f9fbfd 0%,#eef7fb 60%,#dff0f7 100%);position:relative;overflow:hidden;}
+  .page-hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(37,150,190,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,150,190,.04) 1px,transparent 1px);background-size:60px 60px;}
+  .page-hero-inner{max-width:1200px;margin:0 auto;}
+  .breadcrumb{font-size:.8rem;color:var(--gray-mid);margin-bottom:1.2rem;}
+  .breadcrumb a{color:var(--accent);text-decoration:none;}
+  .page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;max-width:700px;}
+  .page-hero h1 em{font-style:italic;color:var(--accent);}
+  .page-hero p{font-size:1.05rem;color:var(--gray-mid);line-height:1.8;margin-top:1.2rem;max-width:580px;}
+
+  section{padding:6rem 5%;}
+  .section-inner{max-width:1200px;margin:0 auto;}
+  .section-label{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.2;color:var(--black);margin-bottom:1rem;}
+  .section-subtitle{font-size:1rem;color:var(--gray-mid);line-height:1.7;max-width:580px;}
+
+  /* SERVICE DETAIL */
+  .service-detail{padding:6rem 5%;border-bottom:1px solid var(--border);}
+  .service-detail:nth-child(even){background:var(--gray-light);}
+  .service-detail-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .service-detail:nth-child(even) .service-detail-inner{direction:rtl;}
+  .service-detail:nth-child(even) .service-detail-inner>*{direction:ltr;}
+  .service-num-large{font-family:'Cormorant Garamond',serif;font-size:6rem;font-weight:300;color:var(--accent-light);line-height:1;margin-bottom:-.5rem;}
+  .service-detail h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;line-height:1.2;margin-bottom:1.2rem;}
+  .service-detail h2 em{font-style:italic;color:var(--accent);}
+  .service-detail p{font-size:.95rem;color:var(--gray-mid);line-height:1.8;margin-bottom:1rem;}
+  .feature-list{list-style:none;margin:1.5rem 0 2rem;}
+  .feature-list li{display:flex;align-items:flex-start;gap:.8rem;padding:.5rem 0;font-size:.9rem;color:var(--gray-dark);}
+  .feature-list li::before{content:'✓';width:20px;height:20px;background:var(--accent-light);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:.05rem;}
+  .service-visual{border-radius:24px;overflow:hidden;position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;}
+  .sv-1{background:linear-gradient(135deg,var(--accent-light) 0%,#b8ddf0 100%);}
+  .sv-2{background:linear-gradient(135deg,#e8f5e9 0%,#c8e6c9 100%);}
+  .sv-3{background:linear-gradient(135deg,#fff3e0 0%,#ffe0b2 100%);}
+  .sv-4{background:linear-gradient(135deg,#fce4ec 0%,#f8bbd0 100%);}
+  .sv-5{background:linear-gradient(135deg,#e8eaf6 0%,#c5cae9 100%);}
+  .service-icon-large{width:120px;height:120px;border-radius:30px;background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(0,0,0,.08);}
+  .service-icon-large svg{width:60px;height:60px;color:var(--accent);}
+
+  /* PROCESS */
+  .process-section{background:var(--black);color:#fff;}
+  .process-section .section-title{color:#fff;}
+  .process-section .section-label{color:rgba(37,150,190,.9);}
+  .process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;margin-top:3.5rem;position:relative;}
+  .process-steps::before{content:'';position:absolute;top:2rem;left:10%;right:10%;height:1px;background:rgba(255,255,255,.1);}
+  .process-step{text-align:center;position:relative;}
+  .step-num{width:64px;height:64px;border-radius:50%;background:rgba(37,150,190,.2);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--accent);margin:0 auto 1.2rem;}
+  .process-step h4{font-size:.9rem;font-weight:600;margin-bottom:.4rem;}
+  .process-step p{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.6;}
+
+  /* INDUSTRIES */
+  .industries-section{background:var(--gray-light);}
+  .industries-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.2rem;margin-top:3rem;}
+  .industry-chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.2rem 1rem;text-align:center;transition:all .3s;cursor:default;}
+  .industry-chip:hover{border-color:var(--accent);background:var(--accent-light);transform:translateY(-3px);}
+  .industry-chip span{font-size:.88rem;font-weight:500;color:var(--gray-dark);}
+  .industry-chip:hover span{color:var(--accent);}
+  .industry-chip div{font-size:1.5rem;margin-bottom:.5rem;}
+
+  /* CTA */
+  .cta-section{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);text-align:center;padding:7rem 5%;}
+  .cta-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:300;color:#fff;margin-bottom:1rem;}
+  .cta-section p{font-size:1.05rem;color:rgba(255,255,255,.8);max-width:540px;margin:0 auto 2.5rem;line-height:1.7;}
+
+  footer{background:var(--black);color:rgba(255,255,255,.6);padding:5rem 5% 2.5rem;}
+  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:3rem;max-width:1200px;margin:0 auto;}
+  .footer-brand .logo{color:#fff;display:block;margin-bottom:1rem;}
+  .footer-brand p{font-size:.88rem;line-height:1.7;max-width:260px;}
+  .footer-col h5{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-bottom:1.2rem;}
+  .footer-col a{display:block;font-size:.88rem;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:.6rem;transition:color .2s;}
+  .footer-col a:hover{color:var(--accent);}
+  .footer-col p{font-size:.88rem;margin-bottom:.6rem;}
+  .footer-bottom{max-width:1200px;margin:3rem auto 0;padding-top:2rem;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;font-size:.8rem;flex-wrap:wrap;gap:1rem;}
+
+  @media(max-width:900px){
+    .service-detail-inner,.service-detail:nth-child(even) .service-detail-inner{grid-template-columns:1fr;direction:ltr;}
+    .process-steps{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:600px){nav{display:none;}.footer-grid{grid-template-columns:1fr;}.process-steps{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header id="header">
+  <a href="index.html" class="logo">Satrio <span>Consulting</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="services.html" class="active">Our Services</a>
+    <a href="insights.html">Insights</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="contact.html" class="btn btn-primary" style="font-size:.83rem;padding:.55rem 1.2rem;">Get in Touch</a>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Our Services</div>
+    <h1>Talent Solutions <em>Engineered</em><br>for Modern Business</h1>
+    <p>From precision executive search to AI-powered hiring platforms, our services cover the full spectrum of talent needs — tailored to your goals, your market, and your timeline.</p>
+  </div>
+</div>
+
+<!-- SERVICE 1: TALENT SEARCH -->
+<div class="service-detail">
+  <div class="service-detail-inner">
+    <div class="reveal">
+      <div class="service-num-large">01</div>
+      <h2>Talent Search &<br><em>Executive Recruitment</em></h2>
+      <p>Our flagship service combines human judgment with market intelligence to identify and secure the leaders and specialists your organisation needs to thrive. We go beyond the obvious candidates to find exceptional talent, including those not actively searching.</p>
+      <p>From C-suite to senior management and technical specialists, we handle every stage of the search with discretion, speed, and precision.</p>
+      <ul class="feature-list">
+        <li>Executive & senior management search</li>
+        <li>Confidential search for sensitive roles</li>
+        <li>In-depth candidate assessment & profiling</li>
+        <li>Structured interview & evaluation process</li>
+        <li>Offer management and onboarding support</li>
+        <li>90-day replacement guarantee</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary">Request a Search</a>
+    </div>
+    <div class="service-visual sv-1 reveal reveal-delay-2">
+      <div class="service-icon-large">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE 2: RPO -->
+<div class="service-detail">
+  <div class="service-detail-inner">
+    <div class="reveal">
+      <div class="service-num-large">02</div>
+      <h2>Recruitment Process<br><em>Outsourcing (RPO)</em></h2>
+      <p>Scale your hiring capacity without scaling your HR headcount. Our RPO solution embeds our specialists directly into your organisation, acting as an extension of your internal team while managing the entire recruitment lifecycle.</p>
+      <p>Ideal for companies experiencing rapid growth, entering new markets, or looking to improve their hiring quality and efficiency at scale.</p>
+      <ul class="feature-list">
+        <li>End-to-end recruitment management</li>
+        <li>Dedicated account team & talent advisors</li>
+        <li>Employer branding & candidate experience</li>
+        <li>Real-time hiring analytics & reporting</li>
+        <li>ATS implementation and optimisation</li>
+        <li>Flexible engagement models (full or partial RPO)</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary">Explore RPO</a>
+    </div>
+    <div class="service-visual sv-2 reveal reveal-delay-2">
+      <div class="service-icon-large">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE 3: EOR -->
+<div class="service-detail">
+  <div class="service-detail-inner">
+    <div class="reveal">
+      <div class="service-num-large">03</div>
+      <h2>Employer of Record<br><em>(EOR)</em></h2>
+      <p>Hire talent across Asia without setting up a legal entity. As your Employer of Record, Satrio Consulting takes full legal responsibility for employment, payroll processing, tax compliance, and benefits administration — so you can focus on growth.</p>
+      <p>Our EOR service allows you to onboard talent in days, not months, across Indonesia, Malaysia, Singapore, and beyond.</p>
+      <ul class="feature-list">
+        <li>Legal employment in 10+ Asian markets</li>
+        <li>Full payroll management & tax compliance</li>
+        <li>Local benefits administration</li>
+        <li>Employment contracts & HR documentation</li>
+        <li>Work permit & visa facilitation</li>
+        <li>Offboarding & termination support</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary">Learn About EOR</a>
+    </div>
+    <div class="service-visual sv-3 reveal reveal-delay-2">
+      <div class="service-icon-large">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE 4: OKOSHI -->
+<div class="service-detail">
+  <div class="service-detail-inner">
+    <div class="reveal">
+      <div class="service-num-large">04</div>
+      <h2>OKOSHI Japanese<br><em>Education Program</em></h2>
+      <p>OKOSHI is a transformative preparation program for Indonesian professionals who aspire to build their careers in Japan. Combining intensive Japanese language training with cultural immersion and career placement support, OKOSHI opens doors to some of the most sought-after opportunities in East Asia.</p>
+      <p>From N5 beginner to business-level N2 proficiency — we take you the full distance.</p>
+      <ul class="feature-list">
+        <li>Structured Japanese language curriculum (N5 to N2)</li>
+        <li>Business communication and etiquette training</li>
+        <li>Japanese corporate culture immersion</li>
+        <li>Direct partnership with Japanese employers</li>
+        <li>Visa and relocation assistance</li>
+        <li>Alumni mentorship network in Japan</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary" style="background:#c8102e;border-color:#c8102e;">Join OKOSHI</a>
+    </div>
+    <div class="service-visual sv-4 reveal reveal-delay-2">
+      <div class="service-icon-large">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE 5: HIRAI -->
+<div class="service-detail">
+  <div class="service-detail-inner">
+    <div class="reveal">
+      <div class="service-num-large">05</div>
+      <h2>Hirai.io —<br><em>AI Recruitment Platform</em></h2>
+      <p>Hirai.io is our proprietary AI-powered recruitment platform built to help companies discover exceptional talent faster, smarter, and with more confidence. Through intelligent matching algorithms, automated screening, and deep candidate insights, Hirai.io transforms raw applications into actionable hiring decisions.</p>
+      <p>Built for the speed and complexity of modern hiring, especially in high-volume and specialised roles.</p>
+      <ul class="feature-list">
+        <li>AI-powered candidate matching & ranking</li>
+        <li>Automated resume screening and scoring</li>
+        <li>Skill and culture fit assessment</li>
+        <li>Integrated video interview platform</li>
+        <li>Real-time pipeline analytics dashboard</li>
+        <li>API integration with existing HR systems</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary">Request a Demo</a>
+    </div>
+    <div class="service-visual sv-5 reveal reveal-delay-2">
+      <div class="service-icon-large">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="section-inner">
+    <p class="section-label reveal">How We Work</p>
+    <h2 class="section-title reveal reveal-delay-1">Our Proven<br>Recruitment Process</h2>
+    <div class="process-steps">
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-num">1</div>
+        <h4>Discovery</h4>
+        <p>Deep briefing to understand your role, culture, and success metrics.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-num">2</div>
+        <h4>Sourcing</h4>
+        <p>Multi-channel search across our 35,000+ network and target market mapping.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-num">3</div>
+        <h4>Assessment</h4>
+        <p>Structured interviews, psychometric tools, and detailed candidate profiling.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-num">4</div>
+        <h4>Presentation</h4>
+        <p>Shortlist of 3–5 exceptional candidates with in-depth written reports.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-num">5</div>
+        <h4>Placement</h4>
+        <p>Offer management, onboarding support, and 90-day follow-through.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries-section">
+  <div class="section-inner">
+    <p class="section-label reveal">Industry Coverage</p>
+    <h2 class="section-title reveal reveal-delay-1">Sectors We Serve</h2>
+    <p class="section-subtitle reveal reveal-delay-2">Our consultants carry deep expertise across industries, ensuring every search is guided by real sectoral knowledge.</p>
+    <div class="industries-grid">
+      <div class="industry-chip reveal"><div>🏦</div><span>Financial Services</span></div>
+      <div class="industry-chip reveal reveal-delay-1"><div>💻</div><span>Technology</span></div>
+      <div class="industry-chip reveal reveal-delay-2"><div>🏭</div><span>Manufacturing</span></div>
+      <div class="industry-chip reveal reveal-delay-3"><div>🛍️</div><span>FMCG & Retail</span></div>
+      <div class="industry-chip reveal"><div>🏥</div><span>Healthcare</span></div>
+      <div class="industry-chip reveal reveal-delay-1"><div>⚡</div><span>Energy</span></div>
+      <div class="industry-chip reveal reveal-delay-2"><div>🎓</div><span>Education</span></div>
+      <div class="industry-chip reveal reveal-delay-3"><div>🚢</div><span>Logistics</span></div>
+      <div class="industry-chip reveal"><div>🏗️</div><span>Real Estate</span></div>
+      <div class="industry-chip reveal reveal-delay-1"><div>📱</div><span>Startups & VC</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <h2>Ready to Find Your<br>Next Great Hire?</h2>
+  <p>Tell us about your hiring challenge and our team will design a solution that fits your timeline, budget, and ambition.</p>
+  <a href="contact.html" class="btn btn-white">Contact Us Today</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="logo">Satrio <span>Consulting</span></a><p>Connecting businesses with exceptional talent across Asia.</p></div>
+    <div class="footer-col"><h5>Navigation</h5><a href="index.html">Home</a><a href="about.html">About Us</a><a href="services.html">Our Services</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h5>Services</h5><a href="services.html">Talent Search</a><a href="services.html">RPO</a><a href="services.html">Employer of Record</a><a href="services.html">OKOSHI Program</a><a href="services.html">Hirai.io</a></div>
+    <div class="footer-col"><h5>Contact</h5><p>📍 Jakarta, Indonesia</p><p>📧 hello@satrioconsulting.com</p><p>📞 +62 21 1234 5678</p></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Satrio Consulting. All rights reserved.</span><span>Executive Search · RPO · EOR · Talent Solutions</span></div>
+</footer>
+<script>
+  const header=document.getElementById('header');
+  window.addEventListener('scroll',()=>{header.classList.toggle('scrolled',window.scrollY>30);});
+  const reveals=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.1});
+  reveals.forEach(r=>observer.observe(r));
+</script>
+</body>
+</html>
